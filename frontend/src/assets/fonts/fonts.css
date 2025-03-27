@@ -1,0 +1,59 @@
+/* In frontend/src/assets/fonts/fonts.css */
+
+@font-face {
+  font-family: 'Open Sans';
+  /* Relativer Pfad von fonts.css zur .ttf-Datei */
+  src: url('./Open_Sans/static/OpenSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('./Open_Sans/static/OpenSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('./Orbitron/static/Orbitron-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('./Orbitron/static/Orbitron-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('./Rajdhani/Rajdhani-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('./Rajdhani/Rajdhani-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ShareTechMono';
+  src: url('./Share_Tech_Mono/ShareTechMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* --- Passe ggf. die Pfade an, falls du die 'static'-Ordner weggelassen hast --- */
