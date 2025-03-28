@@ -8,9 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Builds
-dist
-node_modules
-.vscode
+node_modules/
+.vscode/
+venv/
 
 # Security Scan
 security_scan.html

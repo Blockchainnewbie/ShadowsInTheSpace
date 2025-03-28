@@ -1,5 +1,4 @@
-
- /* Main CSS Stylesheet
+/* Main CSS Stylesheet
  *
  * SOLID - Single Responsibility Principle:
  * This file has the single responsibility of providing global styling.
@@ -155,7 +154,7 @@ html, body {
     background: rgba(0, 0, 0, 0.1);
     border: 1px solid var(--neon-pink);
     backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
 }
 
 .vision-wrapper {
@@ -272,7 +271,7 @@ html, body {
     padding: 2rem;
     margin: 2rem 0;
     backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
 }
 
 .cyber-card:hover {
@@ -313,7 +312,7 @@ av.cybeav.cybe
     color: var(--text-color);
     padding: 0.8rem;
     font-family: 'Share Tech Mono', monospace;
-    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
 }
 
 .form-group input:focus,
@@ -331,7 +330,7 @@ av.cybeav.cybe
     font-family: 'Share Tech Mono', monospace;
     letter-spacing: 1px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    -moz-transition: opacity 0.3s ease;
 }
 
 .form-feedback:not(:empty) {
@@ -360,7 +359,7 @@ av.cybeav.cybe
     padding: 0.8rem 2rem;
     font-family: 'Share Tech Mono', monospace;
     cursor: pointer;
-    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -386,7 +385,7 @@ av.cybeav.cybe
     font-size: 1.2rem;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
