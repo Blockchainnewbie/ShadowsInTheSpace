@@ -21,7 +21,11 @@
     --text-color: #ffffff;
     --neon-yellow: #e5ff00;  /* Oder ein anderes leuchtendes Gelb */
     --darker-bg: #050510;   /* Ein noch dunklerer Ton als --bg-dark */
+    --bs-body-color: var(--text-color); /* Bootstrap Body Textfarbe */
+
 }
+
+
 
 /* Grundlegende Reset und Basis-Styles */
 * {
@@ -33,13 +37,12 @@
 /* Background fix for full page dark background */
 html, body {
     background-color: var(--bg-dark);
-    color: var(--text-color);
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
 }
 
-/* Container für die Bilder */
+Container für die Bilder
 .image-container {
     display: flex; /* Flexbox für die Anordnung der Bilder */
     justify-content: center; /* Zentriert die Bilder horizontal */

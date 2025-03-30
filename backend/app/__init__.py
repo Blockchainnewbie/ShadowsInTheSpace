@@ -1,17 +1,29 @@
-# backend/app/__init__.py
+"""
+Dieses Modul initialisiert und konfiguriert die Flask-Anwendung für das Backend.
+Es enthält die Funktion `create_app`, die die App-Instanz erstellt und konfiguriert.
+Die Konfiguration unterscheidet zwischen Entwicklungs- und Produktionsumgebungen.
+Zusätzlich werden Erweiterungen wie Flask-Migrate, Flask-CORS und Flask-JWT-Extended initialisiert.
+"""
+
 from flask import Flask, logging
 from .config import Config
 from .models import db
 from flask_jwt_extended import JWTManager
-from flask_migrate import Migrate  # Importiere Flask-Migrate
-from flask_cors import CORS # Importiere Flask-CORS
+from flask_migrate import Migrate  # Importiere Flask-Migrate für Datenbankmigrationen
+from flask_cors import CORS  # Importiere Flask-CORS für Cross-Origin Resource Sharing
 
 def create_app():
+    """
+    Erstellt und konfiguriert die Flask-Anwendung.
+
+    Returns:
+        Flask: Die konfigurierte Flask-App-Instanz.
+    """
     app = Flask(__name__)
     # Lade die Konfiguration aus der Config-Klasse
     app.config.from_object(Config)
 
-# Produktionsspezifische Einstellungen für den Hetzner Server
+    # Produktionsspezifische Einstellungen für den Hetzner Server
     if app.config.get('ENV') == 'production':
         # Deaktiviere den Debug-Modus in der Produktion
         app.config['DEBUG'] = False
@@ -24,8 +36,8 @@ def create_app():
         CORS(app, resources={r"/api/*": {"origins": allowed_origin}})
         
         # Richte ein Logging-Handler ein, um Fehler in der Produktion zu protokollieren
-        file_handler = logging.FileHandler('error.log')
-        file_handler.setLevel(logging.ERROR)
+        file_handler = logging.FileHandler('error.log')  # Fehler werden in 'error.log' protokolliert
+        file_handler.setLevel(logging.ERROR)  # Nur Fehler-Level-Logs werden erfasst
         app.logger.addHandler(file_handler)
     else:
         # Für die Entwicklung: Erlaube CORS von localhost
