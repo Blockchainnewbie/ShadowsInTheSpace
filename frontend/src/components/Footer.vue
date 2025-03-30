@@ -20,16 +20,7 @@
 </template>
 
 <script setup>
-/**
- * Footer Component
- * 
- * SOLID - Single Responsibility Principle:
- * This component has the single responsibility of providing the site footer with legal links.
- * 
- * SOLID - Interface Segregation Principle:
- * The component provides only the necessary functionality for a footer without
- * burdening itself with unrelated concerns.
- */
+
 </script>
 
 <script>
@@ -46,13 +37,10 @@ export default {
 </script>
 
 <style scoped>
-/**
- * CSS follows Single Responsibility Principle by only handling styles
- * specific to this footer component.
- */
+
 .footer {
   padding: 1rem 0;
-  background-color: transparent; /* Entferne den schwarzen Hintergrund */
+  /* background-color: transparent; /* Entferne den schwarzen Hintergrund */
   border-top: 2px solid var(--neon-cyan); /* Verstärke den türkisen Streifen */
   position: relative;
   z-index: 1; /* Niedrigerer z-index als der Button */

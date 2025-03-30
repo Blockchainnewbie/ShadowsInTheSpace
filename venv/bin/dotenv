@@ -1,4 +1,4 @@
-#!/media/sonny/Data/Repositorys/Shadows/shadowsinthespace/venv/bin/python3
+#!/media/sonny/Data/Repositorys/ShadowsInTheSpace/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

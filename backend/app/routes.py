@@ -16,7 +16,7 @@ from flask_jwt_extended import (
 import re
 from sqlalchemy.exc import SQLAlchemyError
 from flask_limiter import Limiter, get_remote_address
-from argon2_cffi import PasswordHasher, exceptions  # noqa: F401
+from argon2 import PasswordHasher, exceptions  # noqa: F401
 from .models import db, User, TokenBlacklist
 from datetime import datetime, timedelta
 
