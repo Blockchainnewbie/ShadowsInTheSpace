@@ -21,13 +21,15 @@
           <p>
             Herzlich Willkommen!
 
-            Mein Name ist Sonny, und ich befinde mich aktuell in der Umschulung zum Fachinformatiker für
+            Mein Name ist Marc aka Sonny, und ich befinde mich aktuell in der Umschulung zum Fachinformatiker für
             Anwendungsentwicklung. Seit ich denken kann, fasziniert mich die digitale Welt: Ich bin ein
             leidenschaftlicher Entwickler, der sich besonders für Webentwicklung, Software-Architekturen und
-            Cybersicherheit begeistert.
-
+            Cybersicherheit begeistert.<br>
+            <br>
             Als Kind der 90er fühle ich mich besonders von der Cyberpunk-Kultur inspiriert – diese Faszination fließt in
-            meine Projekte ein, sei es durch kreatives Design oder clevere Funktionalität. Ich bin neugierig, lernbereit
+            meine Projekte ein, sei es durch kreatives Design oder clevere Funktionalität.<br> 
+            <br>
+            Ich bin neugierig, lernbereit
             und gehe strukturiert an Herausforderungen heran. Meine Stärken liegen insbesondere darin, mich schnell in
             neue Technologien und Frameworks einzuarbeiten und diese zielorientiert anzuwenden.
           </p>
@@ -46,8 +48,8 @@
                   <td>Python</td>
                   <td>
                     <div class="skill-bar">
-                      <div class="skill-level" style="width: 80%"></div>
-                      <span class="skill-percent">80%</span>
+                      <div class="skill-level" style="width: 65%"></div>
+                      <span class="skill-percent">65%</span>
                     </div>
                   </td>
                 </tr>
@@ -55,17 +57,17 @@
                   <td>HTML & CSS</td>
                   <td>
                     <div class="skill-bar">
-                      <div class="skill-level" style="width: 80%"></div>
-                      <span class="skill-percent">80%</span>
+                      <div class="skill-level" style="width: 70%"></div>
+                      <span class="skill-percent">70%</span>
                     </div>
                   </td>
                 </tr>
                 <tr>
-                  <td>Tailwind CSS</td>
+                  <td>KI-Anwendugen</td>
                   <td>
                     <div class="skill-bar">
-                      <div class="skill-level" style="width: 70%"></div>
-                      <span class="skill-percent">70%</span>
+                      <div class="skill-level" style="width: 75%"></div>
+                      <span class="skill-percent">75%</span>
                     </div>
                   </td>
                 </tr>
@@ -73,8 +75,8 @@
                   <td>JavaScript / Vue.js</td>
                   <td>
                     <div class="skill-bar">
-                      <div class="skill-level" style="width: 70%"></div>
-                      <span class="skill-percent">70%</span>
+                      <div class="skill-level" style="width: 65%"></div>
+                      <span class="skill-percent">65%</span>
                     </div>
                   </td>
                 </tr>
@@ -82,40 +84,13 @@
                   <td>Flask (Backend)</td>
                   <td>
                     <div class="skill-bar">
-                      <div class="skill-level" style="width: 70%"></div>
-                      <span class="skill-percent">70%</span>
+                      <div class="skill-level" style="width: 55%"></div>
+                      <span class="skill-percent">55%</span>
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td>Bootstrap Framework</td>
-                  <td>
-                    <div class="skill-bar">
-                      <div class="skill-level" style="width: 80%"></div>
-                      <span class="skill-percent">80%</span>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>SQL & ORM (SQLAlchemy)</td>
-                  <td>
-                    <div class="skill-bar">
-                      <div class="skill-level" style="width: 70%"></div>
-                      <span class="skill-percent">70%</span>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Clean Code & SOLID-Prinzipien</td>
-                  <td>
-                    <div class="skill-bar">
-                      <div class="skill-level" style="width: 70%"></div>
-                      <span class="skill-percent">70%</span>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Linux / Shell Scripting</td>
                   <td>
                     <div class="skill-bar">
                       <div class="skill-level" style="width: 60%"></div>
@@ -124,7 +99,25 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Git & Versionsverwaltung</td>
+                  <td>SQL & ORM (SQLAlchemy)</td>
+                  <td>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 55%"></div>
+                      <span class="skill-percent">55%</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Clean Code & SOLID-Prinzipien</td>
+                  <td>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 60%"></div>
+                      <span class="skill-percent">60%</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Linux / Shell Scripting</td>
                   <td>
                     <div class="skill-bar">
                       <div class="skill-level" style="width: 80%"></div>
@@ -133,11 +126,20 @@
                   </td>
                 </tr>
                 <tr>
+                  <td>Git & Versionsverwaltung</td>
+                  <td>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 60%"></div>
+                      <span class="skill-percent">60%</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
                   <td>Cybersicherheit Grundlagen</td>
                   <td>
                     <div class="skill-bar">
-                      <div class="skill-level" style="width: 70%"></div>
-                      <span class="skill-percent">70%</span>
+                      <div class="skill-level" style="width: 65%"></div>
+                      <span class="skill-percent">65%</span>
                     </div>
                   </td>
                 </tr>
@@ -195,19 +197,6 @@
  * Reuses the hero container styling from the landing page for consistency.
  */
 
-.hero {
-  min-height: 100vh;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(45deg, rgba(10, 10, 10, 0.5), rgba(0, 13, 25, 0.5));
-  padding: 6rem 0 4rem; /* Added top padding to prevent navbar overlap */
-  margin-bottom: 2rem; /* Extra space between content and footer */
-  overflow-y: auto; /* Make container scrollable */
-}
-
 /* Custom scrollbar styling for cyberpunk theme */
 .hero::-webkit-scrollbar {
   width: 8px;
@@ -237,21 +226,10 @@
   padding-top: 1rem; /* Added additional top padding for content */
 }
 
- .cyber-link {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 10;
-}
-
-.cyber-link .center-content {
-  padding-bottom: 2rem;
-}
 
 .cyber-link .btn-neon-large {
   box-shadow: 0 0 15px var(--neon-purple);
   transform: scale(1.05);
-  transition: all 0.3s ease;
 }
 
 .cyber-link .btn-neon-large:hover {
@@ -260,18 +238,9 @@
 }
 
 /* Status indicator styling */
-.status-indicator {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
 
 .status-dot {
-  width: 10px;
-  height: 10px;
   background-color: #0f0;
-  border-radius: 50%;
-  margin-right: 8px;
   box-shadow: 0 0 8px #0f0;
   animation: pulse 2s infinite;
 }
@@ -280,12 +249,6 @@
   font-size: 0.9rem;
   color: #0f0;
   text-shadow: 0 0 5px #0f0;
-}
-
-@keyframes pulse {
-  0% { opacity: 0.7; }
-  50% { opacity: 1; }
-  100% { opacity: 0.7; }
 }
 
 /* Skills table styling */
