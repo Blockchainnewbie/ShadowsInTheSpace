@@ -32,7 +32,7 @@
             neue Technologien und Frameworks einzuarbeiten und diese zielorientiert anzuwenden.
           </p>
 
-          <h3 class="skills-heading">Meine Fähigkeiten auf einen Blick:</h3>
+          <h3 class="neon-text">Meine Fähigkeiten auf einen Blick:</h3>
           <div class="skills-table">
             <table>
               <thead>
