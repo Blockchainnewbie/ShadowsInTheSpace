@@ -3,8 +3,8 @@
 ## Phase 1: Kritische Sicherheitsupdates (Sofortmaßnahmen)
 
 ### 1. Authentifizierungshärtung
-- [ ] Passwort-Hashing von SHA-256 auf Argon2id migrieren
-- [ ] Rate-Limiting für Login-Endpoints (5 Versuche/Minute)
+- [x] Passwort-Hashing von SHA-256 auf Argon2id migrieren
+- [x] Rate-Limiting für Login-Endpoints (5 Versuche/Minute)
 - [ ] JWT-Invalidierung implementieren
 
 ```python
