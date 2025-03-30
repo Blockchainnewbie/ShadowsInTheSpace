@@ -306,7 +306,8 @@ av.cybeav.cybe
     color: var(--neon-cyan);
     font-size: 0.9rem;
     letter-spacing: 1px;
-}av.cybe textarea {
+}
+.textarea {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--neon-cyan);
     color: var(--text-color);
@@ -476,7 +477,7 @@ av.cybeav.cybe
         font-size: 0.9rem;
     }
 }
-av.cybe
+
 /* Aligned List Styles */
 .aligned-list {
     padding-left: 20px; /* Einrückung für die Listenpunkte */

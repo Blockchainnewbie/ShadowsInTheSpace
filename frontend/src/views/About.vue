@@ -237,42 +237,6 @@
   padding-top: 1rem; /* Added additional top padding for content */
 }
 
-.vision-wrapper {
-  flex: 1;
-  display: flex;
-  overflow: visible;
-  position: relative;
-}
-
-.vision-wrapper::before,
-.vision-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: rgba(255, 0, 80, 0.7);
-  pointer-events: none;
-  z-index: 5;
-}
-
-.vision-wrapper::before {
-  left: 0;
-}
-
-.vision-wrapper::after {
-  right: 0;
-}
-
-.vision-text {
-  margin-top: 0rem;
-  margin-bottom: 0rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease;
-}
-
  .cyber-link {
   margin-top: 2rem;
   margin-bottom: 2rem;
