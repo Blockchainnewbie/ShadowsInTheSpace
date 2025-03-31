@@ -19,41 +19,38 @@
   </footer>
 </template>
 
-<script setup>
-
-</script>
-
 <script>
-import emitter from '../utils/eventBus'
+import emitter from '../utils/eventBus';
 
 export default {
   methods: {
     openCookieSettings() {
-      // Cookie-Banner über Event-Bus öffnen
+      // Open cookie banner via event bus
       emitter.emit('open-cookie-settings');
     }
   }
-}
+};
 </script>
 
 <style scoped>
-
 .footer {
   padding: 1rem 0;
-  /* background-color: transparent; /* Entferne den schwarzen Hintergrund */
-  border-top: 2px solid var(--neon-cyan); /* Verstärke den türkisen Streifen */
+  background-color: transparent;
+  border-top: 2px solid var(--neon-cyan);
   position: relative;
-  z-index: 1; /* Niedrigerer z-index als der Button */
-  margin-top: 2rem; /* Weniger Abstand zum Inhalt */
-  bottom: 0; /* Am unteren Rand fixieren */
-  width: 100%; /* Volle Breite */
-  height: 50px; /* Feste Höhe */
-  box-shadow: 0 -5px 15px rgba(0, 255, 240, 0.3); /* Türkiser Glüh-Effekt nach oben */
+  z-index: 1;
+  margin-top: 2rem;
+  width: 100%;
+  height: 50px;
+  box-shadow: 0 -5px 15px var(--neon-cyan-transparent);
 }
 
-.footer p {
-  color: var(--neon-cyan); /* Ändere die Textfarbe zu türkis für bessere Sichtbarkeit */
-  text-shadow: 0 0 5px rgba(0, 255, 240, 0.5); /* Füge einen leichten Glüh-Effekt hinzu */
+.footer p,
+.footer a,
+.footer button,
+.footer span {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan-transparent);
 }
 
 .footer-link {
@@ -75,18 +72,18 @@ export default {
 .cookie-settings-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .cookie-settings-btn:hover {
-  color: var(--neon-cyan);
+  color: var(--neon-cyan) !important;
 }
 
 .cyber-bracket {
-  color: var(--neon-cyan);
+  color: var(--neon-cyan) !important;
   opacity: 0.5;
   transition: opacity 0.3s;
 }

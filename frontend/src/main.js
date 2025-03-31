@@ -14,16 +14,32 @@ import router from './router'
  * concrete implementations, facilitating easier testing and maintenance.
  */
 
-// Bootstrap-CSS
+// Import order is important for CSS precedence
+// Import Bootstrap CSS FIRST
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// Dein eigenes CSS
+// Import our custom CSS AFTER Bootstrap to override Bootstrap styles
 import './assets/main.css'
 
-// Lokale Schriften - Korrekter Import aus dem src-Verzeichnis
-import './assets/fonts/fonts.css'; // <-- ÄNDERN! Kein / am Anfang, kein ?url
+// Import local fonts
+import './assets/fonts/fonts.css'
 
+// Create and mount the Vue application
+const app = createApp(App)
+app.use(router)
+app.mount('#app')
 
-createApp(App)
-  .use(router)
-  .mount('#app')
+// Apply a CSS override to force text colors after mounting
+// This ensures our styles override Bootstrap even in production
+document.addEventListener('DOMContentLoaded', () => {
+  // Force our CSS variables to override Bootstrap
+  document.documentElement.style.setProperty('--bs-body-color', '#ffffff', 'important')
+  document.documentElement.style.setProperty('--bs-body-bg', '#000913', 'important')
+  
+  // Apply the CSS override to ensure footer has transparent background
+  const footerElements = document.querySelectorAll('.footer')
+  footerElements.forEach(footer => {
+    footer.style.backgroundColor = 'transparent'
+    footer.style.color = '#00fff0'
+  })
+})

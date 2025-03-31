@@ -24,11 +24,13 @@
             Mein Name ist Marc aka Sonny, und ich befinde mich aktuell in der Umschulung zum Fachinformatiker für
             Anwendungsentwicklung. Seit ich denken kann, fasziniert mich die digitale Welt: Ich bin ein
             leidenschaftlicher Entwickler, der sich besonders für Webentwicklung, Software-Architekturen und
-            Cybersicherheit begeistert.<br>
-            <br>
+            Cybersicherheit begeistert.
+          </p>
+          <p>
             Als Kind der 90er fühle ich mich besonders von der Cyberpunk-Kultur inspiriert – diese Faszination fließt in
-            meine Projekte ein, sei es durch kreatives Design oder clevere Funktionalität.<br> 
-            <br>
+            meine Projekte ein, sei es durch kreatives Design oder clevere Funktionalität.
+          </p>
+          <p>
             Ich bin neugierig, lernbereit
             und gehe strukturiert an Herausforderungen heran. Meine Stärken liegen insbesondere darin, mich schnell in
             neue Technologien und Frameworks einzuarbeiten und diese zielorientiert anzuwenden.
@@ -147,21 +149,22 @@
             </table>
           </div>
 
-          <p>
+          <p class="about-text">
             <strong>Was mich ausmacht:</strong>
           </p>
-          <ul>
+          <ul class="about-list">
             <li>Lösungsorientierte Denkweise</li>
             <li>Starke Eigeninitiative und Lernbereitschaft</li>
             <li>Strukturierte und saubere Arbeitsweise</li>
             <li>Begeisterung für Technologien, die unsere digitale Zukunft prägen</li>
           </ul>
-          <p>
+          <p class="about-text">
             Ich freue mich darauf, meine Fähigkeiten in einem dynamischen Team im Rahmen eines Praktikums einzubringen
             und dabei weiter auszubauen. Wenn Sie nach jemandem suchen, der mit Begeisterung und Kompetenz Ihr Projekt
             unterstützt, freue ich mich sehr auf Ihre Nachricht!
-
-            Beste Grüße,
+          </p>
+          <p class="about-text">
+            Beste Grüße,<br>
             Sonny
           </p>
 
@@ -192,11 +195,6 @@
 </script>
 
 <style scoped>
-/**
- * Component-specific styles follow the Single Responsibility Principle.
- * Reuses the hero container styling from the landing page for consistency.
- */
-
 /* Custom scrollbar styling for cyberpunk theme */
 .hero::-webkit-scrollbar {
   width: 8px;
@@ -223,9 +221,46 @@
   padding-bottom: 1rem;
   position: relative;
   z-index: 2;
-  padding-top: 1rem; /* Added additional top padding for content */
+  padding-top: 1rem;
 }
 
+/* Force text to be visible */
+.hero-content p,
+.hero-content h1,
+.hero-content h2,
+.hero-content h3,
+.hero-content li,
+.hero-content th,
+.hero-content td,
+.hero-content strong {
+  color: var(--text-color) !important;
+}
+
+.about-text {
+  color: var(--text-color) !important;
+}
+
+.about-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+
+.about-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color) !important;
+}
+
+.about-list li:before {
+  content: "›";
+  color: var(--neon-purple);
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+  text-shadow: 0 0 5px var(--neon-purple);
+}
 
 .cyber-link .btn-neon-large {
   box-shadow: 0 0 15px var(--neon-purple);
@@ -235,20 +270,6 @@
 .cyber-link .btn-neon-large:hover {
   transform: scale(1.1);
   box-shadow: 0 0 25px var(--neon-purple);
-}
-
-/* Status indicator styling */
-
-.status-dot {
-  background-color: #0f0;
-  box-shadow: 0 0 8px #0f0;
-  animation: pulse 2s infinite;
-}
-
-.status-text {
-  font-size: 0.9rem;
-  color: #0f0;
-  text-shadow: 0 0 5px #0f0;
 }
 
 /* Skills table styling */
@@ -262,7 +283,6 @@
   margin: 1rem 0 2rem;
   width: 100%;
   overflow-x: auto;
-  color: white;
 }
 
 .skills-table table {
@@ -271,14 +291,16 @@
   border-spacing: 0;
 }
 
-.skills-table th, .skills-table td {
+.skills-table th, 
+.skills-table td {
   padding: 0.75rem;
   text-align: left;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color) !important;
 }
 
 .skills-table th {
-  color: var(--neon-pink);
+  color: var(--neon-pink) !important;
   text-shadow: 0 0 5px var(--neon-pink);
   font-weight: bold;
 }
@@ -304,30 +326,33 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: white;
+  color: white !important;
   font-size: 0.8rem;
   text-shadow: 0 0 2px black;
 }
 
-/* List styling for "Was mich ausmacht" */
-ul {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 1rem 0;
+/* Status indicator styling */
+.status-dot {
+  background-color: #0f0;
+  box-shadow: 0 0 8px #0f0;
+  animation: pulse 2s infinite;
 }
 
-ul li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.5rem;
+.status-text {
+  font-size: 0.9rem;
+  color: #0f0 !important;
+  text-shadow: 0 0 5px #0f0;
 }
 
-ul li:before {
-  content: "›";
-  color: var(--neon-purple);
-  position: absolute;
-  left: 0;
-  font-size: 1.2rem;
-  text-shadow: 0 0 5px var(--neon-purple);
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
 }
+
 </style>

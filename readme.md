@@ -20,8 +20,8 @@ Cyberpunk-themed web application with Vue.js frontend and Flask backend. Feature
 - Flask
 - SQLAlchemy
 - Alembic (migrations)
-    <!-- Google Analytics wurde entfernt - wird dynamisch geladen -->
-🔴 **Flask Debug Mode Enabled**      <!-- Google Analytics wurde entfernt - wird dynamisch geladen -->
+
+🔴 **Flask Debug Mode Enabled**     
 Location: `backend/app.py:29`  
 Risk: Arbitrary code execution via Werkzeug debugger  
 Solution: 

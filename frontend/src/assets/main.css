@@ -8,77 +8,50 @@
  * New themes or variations can be created by overriding these variables.
  */
 
-/* Grundlegende CSS-Variablen für Neon-Farben */
-
+/* ==================== CSS Variables ==================== */
 :root {
+    /* Neon Colors */
     --neon-cyan: #00fff0;
     --neon-pink: #ff0044;
     --neon-purple: #9000ff;
     --neon-green: #00ff66;
     --neon-red: #ff0033;
     --neon-orange: #ff9900;
+    --neon-yellow: #e5ff00;
+    
+    /* Background Colors */
     --bg-dark: #000913;
+    --darker-bg: #050510;
+    
+    /* Text Colors */
     --text-color: #ffffff;
-    --neon-yellow: #e5ff00;  /* Oder ein anderes leuchtendes Gelb */
-    --darker-bg: #050510;   /* Ein noch dunklerer Ton als --bg-dark */
-    --bs-body-color: var(--text-color); /* Bootstrap Body Textfarbe */
-
+    
+    /* Override Bootstrap Variables */
+    --bs-body-color: var(--text-color) !important;
+    --bs-body-bg: var(--bg-dark) !important;
 }
 
-
-
-/* Grundlegende Reset und Basis-Styles */
+/* ==================== Reset & Base Styles ==================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Background fix for full page dark background */
 html, body {
     background-color: var(--bg-dark);
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
+    color: var(--text-color) !important;
 }
 
-Container für die Bilder
-.image-container {
-    display: flex; /* Flexbox für die Anordnung der Bilder */
-    justify-content: center; /* Zentriert die Bilder horizontal */
-    align-items: center; /* Zentriert die Bilder vertikal */
-    width: 100%; /* Nimmt die volle Breite ein */
-    min-height: 100vh; /* Mindesthöhe auf volle Viewport-Höhe setzen */
-    height: 100%; /* Nimmt die volle Höhe ein */
-    overflow: hidden; /* Verhindert das Überlaufen der Bilder */
-    position: relative; /* Für die Positionierung des Grid-Overlays */
-    z-index: 2; /* Bringt die Bilder in den Vordergrund */
+/* Force text colors to be white in all contexts */
+p, h1, h2, h3, h4, h5, h6, span, li, a, label {
+    color: var(--text-color) !important;
 }
 
-/* Style für die Bilder */
-.image-container img {
-    max-width: 50%; /* Jedes Bild nimmt maximal 50% der Breite ein */
-    height: 100vh; /* Volle Viewport-Höhe für die Bilder */
-    object-fit: cover; /* Das Bild füllt den Container vollständig aus */
-    object-position: center; /* Zentriert das Bild innerhalb seines Containers */
-    display: block; /* Verhindert unerwünschte Abstände */
-}
-
-/* Anpassung für kleinere Bildschirme */
-@media (max-width: 768px) {
-    .image-container {
-        flex-direction: column; /* Bilder untereinander anordnen */
-        height: auto; /* Höhe an den Inhalt anpassen */
-        padding: 20px 0; /* Etwas Abstand oben und unten */
-    }
-
-    .image-container img {
-        max-width: 100%; /* Jedes Bild nimmt die volle Breite ein */
-        max-height: 50vh; /* Begrenze die maximale Höhe */
-        margin-bottom: 20px; /* Abstand zwischen den Bildern */
-    }
-}
-
+/* ==================== Layout Components ==================== */
 /* Grid Overlay Effect */
 .grid-overlay {
     position: absolute;
@@ -93,19 +66,10 @@ Container für die Bilder
         linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px);
     background-size: 30px 30px;
     opacity: 0.1;
-    z-index: 1; /* Niedrigerer z-index als der hero-content */
+    z-index: 1;
 }
 
-/* Container */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
-    
-}
-
-/* Header/Hero Sektion */
+/* Hero Section */
 .hero {
     min-height: 100vh;
     height: 100%;
@@ -114,117 +78,42 @@ Container für die Bilder
     position: relative;
     z-index: 1;
     background: linear-gradient(45deg, rgba(10, 10, 10, 0.5), rgba(0, 13, 25, 0.5));
-    padding-top: 4rem; /* Increased top padding to prevent navbar overlap */
-    padding-bottom: 4rem; /* Increased bottom padding to match top */
+    padding-top: 4rem;
+    padding-bottom: 4rem;
     padding-left: 0;
     padding-right: 0;
-    margin-top: 2rem; /* Added top margin for more space */
-    margin-bottom: 2rem; /* Extra space between content and footer */
-    overflow-y: auto; /* Make container scrollable */
-  }
-
-
-/* New hero overlay style */
-.hero-overlay {
-    position: absolute;
-    top: 0; /* Beginnt am oberen Rand */
-    left: 0; /* Beginnt am linken Rand */
-    right: 0; /* Erstreckt sich bis zum rechten Rand */
-    bottom: 0; /* Erstreckt sich bis zum unteren Rand */
-    z-index: 3; /* Above grid-overlay */
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex; /* Flexbox für die Zentrierung des Inhalts */
-    justify-content: center; /* Horizontale Zentrierung */
-    align-items: center; /* Vertikale Zentrierung */
-    overflow-y: auto; /* Scrollbar bei Bedarf */
-  }
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    overflow-y: auto;
+}
 
 .hero-content {
     text-align: center;
     z-index: 2;
     max-width: 800px;
     padding: 1.5rem;
-    margin: 1.5rem auto; /* Zentriert den Inhalt horizontal */
+    margin: 1.5rem auto;
     position: relative;
     background: transparent;
 }
 
-/* Vision Text im Hero-Bereich */
-.vision-text {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--neon-pink);
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-}
-
-.vision-wrapper {
-    background: transparent; /* Sicherstellen, dass kein schwarzer Container vorhanden ist */
-}
-
-/* Cyber Link Section innerhalb der Vision */
-.cyber-link {
-    margin-top: 1rem;
-    margin-bottom: 3rem; /* Mehr Abstand nach unten */
-    text-align: center;
-    position: relative;
-    z-index: 5; /* Höherer z-index als der Footer */
-}
-
-.cyber-link .center-content {
+/* Hero Overlay Style */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 3rem; /* Zusätzlicher Abstand nach unten */
-}av.cybe
-
-/* Kontaktformular innerhalb der Vision */
-.vision-text .contact {
-    margin-top: 4rem;
-    padding-top: 3rem;
-    border-top: 1px solid var(--neon-cyan);
+    overflow-y: auto;
 }
 
-.vision-text .contact .container {
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.vision-text .cyber-card {
-    background: rgba(0, 0, 0, 0.4);
-    margin: 0;
-    padding: 2.5rem;
-}
-
-.vision-text .contact h2 {
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.vision-text .form-group input,
-.vision-text .form-group textarea {
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.vision-text h2 {
-    margin-bottom: 1.5rem;
-}
-
-.vision-text p {
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    text-shadow: 0 0 10px rgba(255, 0, 68, 0.3);
-}
-
-.vision-text:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 20px var(--neon-pink);
-}
-
-/* Neon Text Effekte */
+/* ==================== Typography & Text Effects ==================== */
+/* Neon Text Effects */
 .neon-text {
     font-family: 'Orbitron', sans-serif;
     color: var(--text-color);
@@ -265,6 +154,36 @@ Container für die Bilder
 .status-text {
     font-size: 1.2rem;
     letter-spacing: 2px;
+    color: var(--text-color);
+}
+
+/* ==================== Cyberpunk UI Components ==================== */
+/* Vision Text Section */
+.vision-text {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--neon-pink);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.vision-text:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+.vision-text h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.vision-text p {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-shadow: 0 0 10px rgba(255, 0, 68, 0.3);
 }
 
 /* Cyber Cards */
@@ -282,23 +201,30 @@ Container für die Bilder
     box-shadow: 0 0 20px var(--neon-cyan);
 }
 
-/* Sektionen */
-section {
-    padding: 100px 0;
+/* Cyber Link Section */
+.cyber-link {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    text-align: center;
     position: relative;
+    z-index: 5;
 }
 
-/* Kontaktformular */
-.contact {
-    margin-top: 1rem; /* Verhindere übermäßigen Abstand */
+.cyber-link .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3rem;
 }
 
+/* ==================== Form Elements ==================== */
+/* Contact Form */
 .contact-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
-av.cybeav.cybe
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -310,23 +236,25 @@ av.cybeav.cybe
     font-size: 0.9rem;
     letter-spacing: 1px;
 }
-.textarea {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--neon-cyan);
-    color: var(--text-color);
-    padding: 0.8rem;
-    font-family: 'Share Tech Mono', monospace;
-    transition: all 0.3s ease;
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--neon-cyan) !important;
+    color: var(--text-color) !important;
+    padding: 0.8rem !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    transition: all 0.3s ease !important;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: none;
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 10px var(--neon-pink);
+    outline: none !important;
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 10px var(--neon-pink) !important;
 }
 
-/* Formular Feedback Styles */
+/* Form Feedback */
 .form-feedback {
     margin-top: 1rem;
     padding: 1rem;
@@ -342,24 +270,25 @@ av.cybeav.cybe
 }
 
 .form-feedback.success {
-    color: var(--neon-green);
+    color: var(--neon-green) !important;
     text-shadow: 0 0 5px var(--neon-green);
     border: 1px solid var(--neon-green);
     background: rgba(0, 255, 102, 0.1);
 }
 
 .form-feedback.error {
-    color: var(--neon-red);
+    color: var(--neon-red) !important;
     text-shadow: 0 0 5px var(--neon-red);
     border: 1px solid var(--neon-red);
     background: rgba(255, 0, 51, 0.1);
 }
 
-/* Buttons */
+/* ==================== Button Styles ==================== */
+/* Standard Neon Button */
 .btn-neon {
     background: transparent;
     border: 1px solid var(--neon-cyan);
-    color: var(--text-color);
+    color: var(--text-color) !important;
     padding: 0.8rem 2rem;
     font-family: 'Share Tech Mono', monospace;
     cursor: pointer;
@@ -370,7 +299,7 @@ av.cybeav.cybe
 
 .btn-neon:hover {
     background: var(--neon-cyan);
-    color: var(--bg-dark);
+    color: var(--bg-dark) !important;
     box-shadow: 0 0 20px var(--neon-cyan);
 }
 
@@ -379,11 +308,12 @@ av.cybeav.cybe
     cursor: not-allowed;
 }
 
+/* Large Neon Button */
 .btn-neon-large {
     display: inline-block;
     background: transparent;
     border: 2px solid var(--neon-purple);
-    color: var(--text-color);
+    color: var(--text-color) !important;
     padding: 1.2rem 3rem;
     font-family: 'Orbitron', sans-serif;
     font-size: 1.2rem;
@@ -393,19 +323,31 @@ av.cybeav.cybe
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
-    z-index: 10; /* Höherer z-index als der Footer */
-    margin-bottom: 3rem; /* Zusätzlicher Abstand nach unten */
+    z-index: 10;
+    margin-bottom: 3rem;
 }
 
 .btn-neon-large:hover {
     background: var(--neon-purple);
-    color: var(--bg-dark);
+    color: var(--bg-dark) !important;
     box-shadow: 0 0 30px var(--neon-purple);
     transform: translateY(-3px);
 }
 
-/* Animationen */
-  
+/* ==================== Aligned List Styles ==================== */
+.aligned-list {
+    padding-left: 20px;
+    list-style-position: inside;
+}
+
+.aligned-list li {
+    margin-bottom: 10px;
+    text-indent: -20px;
+    padding-left: 20px;
+    color: var(--text-color);
+}
+
+/* ==================== Animations ==================== */
 @keyframes neonPulse {
     0%, 100% {
         text-shadow: 
@@ -432,7 +374,7 @@ av.cybeav.cybe
     }
 }
 
-/* Responsive Design */
+/* ==================== Media Queries ==================== */
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 2rem;
@@ -479,16 +421,4 @@ av.cybeav.cybe
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
     }
-}
-
-/* Aligned List Styles */
-.aligned-list {
-    padding-left: 20px; /* Einrückung für die Listenpunkte */
-    list-style-position: inside; /* Punkte innerhalb des Textblocks platzieren */
-}
-
-.aligned-list li {
-    margin-bottom: 10px; /* Abstand zwischen den Listenelementen */
-    text-indent: -20px; /* Zurückrücken der Punkte direkt vor den Text */
-    padding-left: 20px; /* Text nach den Punkten gleichmäßig ausrichten */
 }

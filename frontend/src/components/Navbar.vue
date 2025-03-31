@@ -177,21 +177,12 @@ const formatDate = (dateString) => {
 </script>
 
 <style scoped>
-:root {
-  --neon-cyan: #0ff;
-  --neon-magenta: #f0f;
-  --neon-yellow: #ff0;
-  --dark-bg: #0a0a16;
-  --darker-bg: #050510;
-  --terminal-green: #00ff00;
-}
-
 /* Cyberpunk Navbar */
 .cyberpunk-nav {
   background: var(--darker-bg);
   border-bottom: 2px solid var(--neon-cyan);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-  font-family: 'Rajdhani', 'Orbitron', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   position: relative;
   z-index: 100;
   height: 75px;

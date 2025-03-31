@@ -9,8 +9,13 @@ from flask import Flask, logging
 from .config import Config
 from .models import db
 from flask_jwt_extended import JWTManager
-from flask_migrate import Migrate  # Importiere Flask-Migrate für Datenbankmigrationen
-from flask_cors import CORS  # Importiere Flask-CORS für Cross-Origin Resource Sharing
+from flask_migrate import Migrate
+from flask_cors import CORS
+from flask_limiter import Limiter # Import Limiter
+from flask_limiter.util import get_remote_address # Import get_remote_address
+
+jwt = JWTManager() # Define jwt globally
+limiter = Limiter(key_func=get_remote_address) # Define limiter globally
 
 def create_app():
     """
@@ -46,15 +51,17 @@ def create_app():
     # Initialisiere die Datenbank und binde sie an die App
     db.init_app(app)
 
-    # Initialisiere den JWT-Manager zur Handhabung von JSON Web Tokens
-    jwt = JWTManager(app)
+    # Initialisiere den JWT-Manager mit der App
+    jwt.init_app(app)
 
     # Initialisiere Flask-Migrate zur Verwaltung von Datenbankmigrationen
     migrate = Migrate(app, db)
 
-    # Importiere und registriere den Blueprint zur Modularisierung der API-Routen (z.B. Authentifizierung)
-    from .routes import auth_bp
-    app.register_blueprint(auth_bp)
+    # Importiere und registriere Blueprints und initialisiere Erweiterungen im App-Kontext
+    with app.app_context():
+        from .routes import auth_bp
+        limiter.init_app(app) # Initialize limiter here
+        app.register_blueprint(auth_bp)
 
     # Gib die vollständig konfigurierte App-Instanz zurück
     return app

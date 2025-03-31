@@ -34,22 +34,6 @@
 }
 
 @font-face {
-  font-family: 'Rajdhani';
-  src: url('./Rajdhani/Rajdhani-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rajdhani';
-  src: url('./Rajdhani/Rajdhani-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'ShareTechMono';
   src: url('./Share_Tech_Mono/ShareTechMono-Regular.ttf') format('truetype');
   font-weight: normal;

@@ -1,24 +1,25 @@
 # backend/app/routes.py
-
+import traceback # Add traceback import
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
-    create_access_token, 
-    get_jwt_identity, 
+    create_access_token,
+    get_jwt_identity,
     jwt_required,
     get_jwt,
     create_refresh_token,
     set_access_cookies,
     set_refresh_cookies,
     unset_jwt_cookies,
-    verify_jwt_in_request,
-    jwt
+    verify_jwt_in_request
 )
+
 import re
 from sqlalchemy.exc import SQLAlchemyError
-from flask_limiter import Limiter, get_remote_address
+# Remove local Limiter import and initialization below
 from argon2 import PasswordHasher, exceptions  # noqa: F401
 from .models import db, User, TokenBlacklist
 from datetime import datetime, timedelta
+from . import jwt, limiter # Import jwt and limiter from __init__
 
 ph = PasswordHasher(
     time_cost=3,       # Erhöht die CPU-Kosten
@@ -28,15 +29,10 @@ ph = PasswordHasher(
     salt_len=16        # Länge des Salts
 )
 
-# Initialisiere Rate-Limiter
-limiter = Limiter(
-    key_func=get_remote_address,
-    default_limits=["5 per minute"]
-)
-
 # JWT Callbacks
+# Limiter initialization is removed as it's now done in __init__.py
 @jwt.token_in_blocklist_loader
-def check_if_token_revoked(jwt_header, jwt_payload):
+def check_if_token_revoked(_jwt_header, jwt_payload):
     jti = jwt_payload['jti']
     token = TokenBlacklist.query.filter_by(jti=jti).first()
     return token is not None
@@ -151,6 +147,7 @@ def login():
         return response, 200
 
     except Exception as e:
+        traceback.print_exc() # Print the full traceback to the console
         return jsonify({
             "message": "Fehler bei der Anmeldung",
             "error": str(e),
