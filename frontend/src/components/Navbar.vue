@@ -4,51 +4,65 @@
       <div class="container">
         <!-- Logo mit Glitch-Effekt -->
         <router-link class="navbar-brand cyberpunk-logo" to="/">
-          <span class="glitch-text" data-text="ShadowsInThe.Space">ShadowsInThe.Space</span>
+          <span class="glitch-text" data-text="ShadowsInThe.Space"
+            >ShadowsInThe.Space</span
+          >
         </router-link>
-        
+
         <!-- RSS Feed Icon -->
         <button @click="toggleFeed" class="cyberpunk-btn me-3">
           <i class="bi bi-rss-fill"></i>
           <span class="cyber-glow">FEED</span>
         </button>
-        
+
         <!-- Navbar toggler -->
-        <button class="navbar-toggler cyber-toggler" type="button" data-bs-toggle="collapse" 
-                data-bs-target="#navbarNav" aria-controls="navbarNav" 
-                aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler cyber-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="toggler-icon"></span>
         </button>
-        
+
         <!-- Navigation Links -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/about">About</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/impressum">Impressum</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/dsgvo">DSGVO</router-link>
-          </li>
-          <!-- Zeige den Login-Link nur, wenn der Nutzer NICHT eingeloggt ist -->
-          <li class="nav-item" v-if="!isLoggedIn">
-            <router-link class="nav-link" to="/login">Login</router-link>
-          </li>
-          <!-- Zeige den Dashboard-Link nur, wenn der Nutzer eingeloggt ist -->
-          <li class="nav-item" v-if="isLoggedIn">
-            <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
-          </li>
-          <!-- Logout-Link nur anzeigen, wenn eingeloggt -->
-          <li class="nav-item" v-if="isLoggedIn">
-            <a class="nav-link" href="#" @click.prevent="handleLogout">Logout</a>
-          </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/about">About</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/impressum"
+                >Impressum</router-link
+              >
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/dsgvo">DSGVO</router-link>
+            </li>
+            <!-- Zeige den Login-Link nur, wenn der Nutzer NICHT eingeloggt ist -->
+            <li class="nav-item" v-if="!isLoggedIn">
+              <router-link class="nav-link" to="/login">Login</router-link>
+            </li>
+            <!-- Zeige den Dashboard-Link nur, wenn der Nutzer eingeloggt ist -->
+            <li class="nav-item" v-if="isLoggedIn">
+              <router-link class="nav-link" to="/dashboard"
+                >Dashboard</router-link
+              >
+            </li>
+            <!-- Logout-Link nur anzeigen, wenn eingeloggt -->
+            <li class="nav-item" v-if="isLoggedIn">
+              <a class="nav-link" href="#" @click.prevent="handleLogout"
+                >Logout</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-    
+    </nav>
+
     <!-- RSS Feed Panel -->
     <div class="cyber-feed-panel" :class="{ 'feed-active': feedActive }">
       <div class="cyber-feed-header">
@@ -67,11 +81,17 @@
           <p>NO TRANSMISSIONS DETECTED</p>
         </div>
         <div v-else class="cyber-feed-items">
-          <div v-for="(item, index) in feedItems" :key="index" class="cyber-feed-item">
+          <div
+            v-for="(item, index) in feedItems"
+            :key="index"
+            class="cyber-feed-item"
+          >
             <div class="feed-time">{{ formatDate(item.pubDate) }}</div>
             <h4 class="feed-title">{{ item.title }}</h4>
             <p class="feed-desc">{{ truncateText(item.description, 100) }}</p>
-            <a :href="item.link" target="_blank" class="nav-link-small">READ MORE &gt;&gt;</a>
+            <a :href="item.link" target="_blank" class="nav-link-small"
+              >READ MORE &gt;&gt;</a
+            >
           </div>
         </div>
       </div>
@@ -82,98 +102,97 @@
 <script setup>
 /**
  * Navigation Bar Component
- * 
+ *
  * SOLID - Single Responsibility Principle:
  * This component has the single responsibility of providing site navigation.
- * 
+ *
  * SOLID - Open/Closed Principle:
  * The navbar is structured to be easily extended with new navigation items
  * without modifying the existing component structure.
  * // Wenn du Logik zur bedingten Anzeige (z. B. abhängig vom Auth-Status) implementieren möchtest, kannst du das hier ergänzen.
  */
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import * as bootstrap from 'bootstrap'
-import { useRouter } from 'vue-router'
-import emitter from '../utils/eventBus'
-import authService from '../services/auth'
-import { fetchRssFeed } from '../services/api'
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
+import emitter from "../utils/eventBus";
+import authService from "../services/auth";
+import { fetchRssFeed } from "../services/api";
 
 // Computed-Property: Prüfe, ob ein Token im LocalStorage existiert
-const isLoggedIn = ref(authService.isAuthenticated())
+const isLoggedIn = ref(authService.isAuthenticated());
 
 // Update the auth state when localStorage changes
 const updateAuthState = () => {
-  isLoggedIn.value = authService.isAuthenticated()
-}
+  isLoggedIn.value = authService.isAuthenticated();
+};
 
 // Listen for auth change events
 onMounted(() => {
-  emitter.on('auth-change', updateAuthState)
-})
+  emitter.on("auth-change", updateAuthState);
+});
 
 // Clean up event listener when component unmounts
 onBeforeUnmount(() => {
-  emitter.off('auth-change', updateAuthState)
-})
+  emitter.off("auth-change", updateAuthState);
+});
 
-const router = useRouter()
+const router = useRouter();
 
 // Logout-Funktion: Entfernt den JWT-Token und navigiert zur Login-Seite
 const handleLogout = () => {
-  authService.logout()
-  router.push('/login')
-}
-
+  authService.logout();
+  router.push("/login");
+};
 
 // Feed state
-const feedActive = ref(false)
-const feedItems = ref([])
-const loading = ref(false)
-const feedError = ref(null)
-
+const feedActive = ref(false);
+const feedItems = ref([]);
+const loading = ref(false);
+const feedError = ref(null);
 
 // Toggle feed visibility
 const toggleFeed = () => {
-  console.log('toggleFeed called, current state:', feedActive.value)
-  feedActive.value = !feedActive.value
-  console.log('toggleFeed new state:', feedActive.value)
-  
+  console.log("toggleFeed called, current state:", feedActive.value);
+  feedActive.value = !feedActive.value;
+  console.log("toggleFeed new state:", feedActive.value);
+
   if (feedActive.value && feedItems.value.length === 0) {
-    loadFeed()
+    loadFeed();
   }
-}
+};
 
 // Fetch RSS feed
 const loadFeed = async () => {
-  console.log('loadFeed called')
-  loading.value = true
-  feedError.value = null
-  
+  console.log("loadFeed called");
+  loading.value = true;
+  feedError.value = null;
+
   try {
-    console.log('Attempting to fetch RSS feed')
-    feedItems.value = await fetchRssFeed()
-    console.log('RSS feed fetched successfully:', feedItems.value)
+    console.log("Attempting to fetch RSS feed");
+    feedItems.value = await fetchRssFeed();
+    console.log("RSS feed fetched successfully:", feedItems.value);
   } catch (error) {
-    console.error('Error fetching RSS feed:', error)
-    feedError.value = error.message
+    console.error("Error fetching RSS feed:", error);
+    feedError.value = error.message;
   } finally {
-    console.log('loadFeed completed, loading state:', loading.value)
-    loading.value = false
+    console.log("loadFeed completed, loading state:", loading.value);
+    loading.value = false;
   }
-}
+};
 
 // Helper functions
 const truncateText = (text, maxLength) => {
-  const strippedText = text.replace(/<[^>]*>?/gm, '')
-  return strippedText.length > maxLength 
-    ? strippedText.substring(0, maxLength) + '...' 
-    : strippedText
-}
+  const strippedText = text.replace(/<[^>]*>?/gm, "");
+  return strippedText.length > maxLength
+    ? strippedText.substring(0, maxLength) + "..."
+    : strippedText;
+};
 
 const formatDate = (dateString) => {
-  const date = new Date(dateString)
-  return `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth()+1).toString().padStart(2, '0')}.${date.getFullYear()}`
-}
+  const date = new Date(dateString);
+  return `${date.getDate().toString().padStart(2, "0")}.${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}.${date.getFullYear()}`;
+};
 </script>
 
 <style scoped>
@@ -182,14 +201,14 @@ const formatDate = (dateString) => {
   background: var(--darker-bg);
   border-bottom: 2px solid var(--neon-cyan);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   position: relative;
   z-index: 100;
   height: 75px;
 }
 
 .navbar-brand {
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-size: 1.8rem;
 }
 
@@ -227,7 +246,8 @@ const formatDate = (dateString) => {
 .glitch-text::after {
   color: var(--neon-yellow);
   z-index: -1;
-  animation: glitch 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+  animation: glitch 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both
+    infinite;
   animation-delay: 1s;
 }
 
@@ -265,26 +285,25 @@ const formatDate = (dateString) => {
   padding: 0.5rem 0.75rem !important;
 }
 
-/* .cyber-bracket {
+.cyber-bracket {
   color: var(--neon-cyan);
   opacity: 0;
   transition: all 0.3s;
-} */
-
-/* .nav-link:hover .cyber-bracket,
+}
+.nav-link:hover .cyber-bracket,
 .router-link-active .cyber-bracket {
   opacity: 1;
-} */
+} 
 
 .nav-link:hover,
-.nav-link.router-link-active { /* .router-link-active bleibt, da es von Vue Router kommt */
+.nav-link.router-link-active {
+  /* .router-link-active bleibt, da es von Vue Router kommt */
   color: var(--neon-cyan) !important; /* Prüfe, ob !important nötig ist */
   text-shadow: 0 0 8px var(--neon-cyan); /* Der Glow */
   /* Ggf. !important hinzufügen, falls Bootstrap den Shadow überschreibt */
   /* text-shadow: 0 0 8px var(--neon-cyan) !important; */
   background: rgba(0, 255, 255, 0.05);
 }
-
 
 /* Custom Toggler */
 .cyber-toggler {
@@ -302,7 +321,7 @@ const formatDate = (dateString) => {
 
 .toggler-icon::before,
 .toggler-icon::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 24px;
   height: 2px;
@@ -373,7 +392,7 @@ const formatDate = (dateString) => {
   color: var(--neon-yellow);
   font-size: 1rem;
   margin: 0;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
 .cyber-close-btn {
@@ -416,7 +435,7 @@ const formatDate = (dateString) => {
   right: 0.5rem;
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.6);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
 .feed-title {
@@ -435,7 +454,7 @@ const formatDate = (dateString) => {
   color: var(--neon-yellow);
   font-size: 0.8rem;
   text-decoration: none;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
 .nav-link-small:hover {
@@ -475,18 +494,19 @@ const formatDate = (dateString) => {
 .cyber-loading p {
   margin-top: 1rem;
   color: var(--neon-yellow);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
 /* Error and Empty States */
-.cyber-error, .cyber-empty {
+.cyber-error,
+.cyber-empty {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 150px;
   border: 1px dashed rgba(255, 0, 255, 0.5);
   color: var(--neon-magenta);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   text-align: center;
   padding: 1rem;
 }
