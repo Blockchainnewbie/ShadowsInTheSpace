@@ -3,8 +3,8 @@
     "axios": "^1.8.4"
   },
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+    "start": "python backend/run.py",
+    "dev": "python backend/run.py"
   },
   "browserslist": [
     "> 0.5%",

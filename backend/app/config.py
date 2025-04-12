@@ -21,11 +21,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(os.path.dirname(basedir), '.env.local'))
 
 class Config:
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     # Geheimschlüssel für die Anwendung (z. B. für Sitzungen)
     SECRET_KEY = os.environ.get('SECRET_KEY')
     
-    # Datenbankverbindungs-URI
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     
     # Deaktiviert die Nachverfolgung von Änderungen in SQLAlchemy (spart Ressourcen)
     SQLALCHEMY_TRACK_MODIFICATIONS = False

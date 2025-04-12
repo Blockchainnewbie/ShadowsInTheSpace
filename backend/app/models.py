@@ -8,7 +8,7 @@ Es verwendet SQLAlchemy, um die Datenbanktabellen und deren Beziehungen zu defin
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-db = SQLAlchemy()
+db = SQLAlchemy(engine_options={"pool_pre_ping": True})
 
 class User(db.Model):
     """

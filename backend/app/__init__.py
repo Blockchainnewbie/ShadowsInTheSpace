@@ -6,7 +6,6 @@ Zusätzlich werden Erweiterungen wie Flask-Migrate, Flask-CORS und Flask-JWT-Ext
 """
 
 from flask import Flask, logging
-from .config import Config
 from .models import db
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
@@ -25,9 +24,9 @@ def create_app():
         Flask: Die konfigurierte Flask-App-Instanz.
     """
     app = Flask(__name__)
-    # Lade die Konfiguration aus der Config-Klasse
-    app.config.from_object(Config)
-
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database.db'
+    # Setze die SQLALCHEMY_DATABASE_URI aus der Konfiguration vor der Initialisierung der Datenbank
+   
     # Produktionsspezifische Einstellungen für den Hetzner Server
     if app.config.get('ENV') == 'production':
         # Deaktiviere den Debug-Modus in der Produktion
@@ -49,7 +48,7 @@ def create_app():
         CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
     # Initialisiere die Datenbank und binde sie an die App
-    db.init_app(app)
+    db.init_app(app)  # Initialisieren der Datenbank
 
     # Initialisiere den JWT-Manager mit der App
     jwt.init_app(app)

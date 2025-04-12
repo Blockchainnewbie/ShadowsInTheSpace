@@ -1,3 +1,7 @@
+# This file contains the project dependencies.
+# Each line represents a package to be installed.
+# The following packages are needed: flask, itsdangerous, Werkzeug, SQLAlchemy, alembic and psycopg2-binary
+
 alembic==1.15.1
 Flask==3.1.0
 Flask-Limiter==3.5.0

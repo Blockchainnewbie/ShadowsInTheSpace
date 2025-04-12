@@ -1,5 +1,17 @@
+import sys
+from pathlib import Path
+
+# Add the 'backend' directory to the Python path
+project_root = Path(__file__).parent.parent
+sys.path.append(str(project_root))
+from app import create_app
 import logging
 from logging.config import fileConfig
+from app.models import db
+
+app = create_app()
+app.app_context().push()
+
 
 from flask import current_app
 
@@ -15,29 +27,22 @@ fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
 
+
 def get_engine():
-    try:
-        # this works with Flask-SQLAlchemy<3 and Alchemical
-        return current_app.extensions['migrate'].db.get_engine()
-    except (TypeError, AttributeError):
-        # this works with Flask-SQLAlchemy>=3
-        return current_app.extensions['migrate'].db.engine
+    from app import db
+    return db.engine
 
 
 def get_engine_url():
-    try:
-        return get_engine().url.render_as_string(hide_password=False).replace(
-            '%', '%%')
-    except AttributeError:
-        return str(get_engine().url).replace('%', '%%')
+    return 'sqlite:///./database.db'
 
 
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
+target_metadata = db.metadata
 config.set_main_option('sqlalchemy.url', get_engine_url())
-target_db = current_app.extensions['migrate'].db
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -46,9 +51,9 @@ target_db = current_app.extensions['migrate'].db
 
 
 def get_metadata():
-    if hasattr(target_db, 'metadatas'):
-        return target_db.metadatas[None]
-    return target_db.metadata
+    return target_metadata
+
+
 
 
 def run_migrations_offline():
