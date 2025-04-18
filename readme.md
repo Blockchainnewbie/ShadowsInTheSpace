@@ -13,7 +13,7 @@ Cyberpunk-themed web application with Vue.js frontend and Flask backend. Feature
 - Vue.js 3
 - Vite
 - Tailwind CSS
-- Fonts: Orbitron, Rajdhani, Roboto Mono
+- Fonts: Orbitron, Roboto Mono
 
 ### Backend 
 - Python 3
