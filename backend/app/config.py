@@ -23,15 +23,15 @@ load_dotenv(os.path.join(os.path.dirname(basedir), '.env.local'))
 class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     # Geheimschlüssel für die Anwendung (z. B. für Sitzungen)
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'super-secret')
     
     
     # Deaktiviert die Nachverfolgung von Änderungen in SQLAlchemy (spart Ressourcen)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # JWT-Konfiguration
-    # Geheimschlüssel für die JWT-Token-Signierung
-    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    # Geheimschlüssel für die JWT-Token-Signierung (Fallback auf 'super-secret')
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'super-secret')
     
     # Gibt an, wo JWT-Token gespeichert werden (Header und Cookies)
     JWT_TOKEN_LOCATION = ['headers', 'cookies']

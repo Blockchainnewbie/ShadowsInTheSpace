@@ -10,11 +10,12 @@ from .models import db
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_cors import CORS
-from flask_limiter import Limiter # Import Limiter
-from flask_limiter.util import get_remote_address # Import get_remote_address
+from .config import Config
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
-jwt = JWTManager() # Define jwt globally
-limiter = Limiter(key_func=get_remote_address) # Define limiter globally
+jwt = JWTManager()
+limiter = Limiter(key_func=get_remote_address)
 
 def create_app():
     """
@@ -24,43 +25,32 @@ def create_app():
         Flask: Die konfigurierte Flask-App-Instanz.
     """
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database.db'
-    # Setze die SQLALCHEMY_DATABASE_URI aus der Konfiguration vor der Initialisierung der Datenbank
-   
-    # Produktionsspezifische Einstellungen für den Hetzner Server
-    if app.config.get('ENV') == 'production':
-        # Deaktiviere den Debug-Modus in der Produktion
-        app.config['DEBUG'] = False
-        # Stelle sicher, dass Cookies nur über HTTPS übertragen werden
-        app.config['SESSION_COOKIE_SECURE'] = True
-        # Erzwinge die Nutzung von HTTPS
-        app.config['PREFERRED_URL_SCHEME'] = 'https'
-        # Konfiguriere CORS: Erlaube nur Anfragen von einer sicheren, produktionsrelevanten Domain
-        allowed_origin = app.config.get('CORS_ORIGIN', 'https://shadowsinthe.space')
-        CORS(app, resources={r"/api/*": {"origins": allowed_origin}})
+
+    # Configure CORS
+    CORS(app, resources={r"/api/*": {                                           
         
-        # Richte ein Logging-Handler ein, um Fehler in der Produktion zu protokollieren
-        file_handler = logging.FileHandler('error.log')  # Fehler werden in 'error.log' protokolliert
-        file_handler.setLevel(logging.ERROR)  # Nur Fehler-Level-Logs werden erfasst
-        app.logger.addHandler(file_handler)
-    else:
-        # Für die Entwicklung: Erlaube CORS von localhost
-        CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+    # Get Config from Config Class                                               
+        "origins": ["http://localhost:5173", "https://shadowsinthe.space"],
+        "supports_credentials": True
+    }})
+
+    app.config.from_object(Config)
 
     # Initialisiere die Datenbank und binde sie an die App
-    db.init_app(app)  # Initialisieren der Datenbank
-
+    db.init_app(app)
+    
     # Initialisiere den JWT-Manager mit der App
     jwt.init_app(app)
 
     # Initialisiere Flask-Migrate zur Verwaltung von Datenbankmigrationen
-    migrate = Migrate(app, db)
+    Migrate(app, db)
 
-    # Importiere und registriere Blueprints und initialisiere Erweiterungen im App-Kontext
-    with app.app_context():
-        from .routes import auth_bp
-        limiter.init_app(app) # Initialize limiter here
-        app.register_blueprint(auth_bp)
+    # Import and register Blueprints and initialize extensions in the app context
+    from .routes import auth_bp, main_bp
+    limiter.init_app(app)  # Initialize limiter here
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(main_bp)
 
-    # Gib die vollständig konfigurierte App-Instanz zurück
+    # return the fully configured app instance
     return app
+

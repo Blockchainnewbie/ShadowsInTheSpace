@@ -1,5 +1,6 @@
 # backend/app/routes.py
 import traceback # Add traceback import
+import uuid
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
     create_access_token,
@@ -33,8 +34,9 @@ ph = PasswordHasher(
 # Limiter initialization is removed as it's now done in __init__.py
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(_jwt_header, jwt_payload):
+    """Checks if the JWT token is present in the blacklist."""
     jti = jwt_payload['jti']
-    token = TokenBlacklist.query.filter_by(jti=jti).first()
+    token = TokenBlacklist.query.filter((TokenBlacklist.jti == jti)).first()
     return token is not None
 
 # Blueprint für Authentifizierungs-Routen
@@ -115,23 +117,31 @@ def login():
             }), 401
 
         # Erstelle neue Tokens
-        access_token = create_access_token(identity=str(user.id))
-        refresh_token = create_refresh_token(identity=str(user.id))
-        
-        # Aktualisiere last_login Zeitstempel in einer Transaktion
-        db.session.begin()
+        access_token = create_access_token(identity=str(user.id), additional_claims={"token_type": "access"})
+        refresh_token_jti = str(uuid.uuid4())
+        refresh_token = create_refresh_token(identity=str(user.id), additional_claims={"token_type": "refresh", "jti": refresh_token_jti})
+        now = datetime.utcnow()
+
+
         try:
+            # Save the refresh token in the database
+            db.session.add(TokenBlacklist(
+                jti=refresh_token_jti,
+                token_type='refresh',
+                user_id=user.id,
+                expires_at=now + timedelta(days=7),
+                reason='login'
+            ))    
+            # Update last_login timestamp
             user.last_login = datetime.utcnow()
             db.session.commit()
-        except SQLAlchemyError as e:
+        except Exception as e:
             db.session.rollback()
-            # Fehler beim Speichern des Login-Zeitstempels ist nicht kritisch
+            raise e
         
         response = jsonify({
             "message": "Erfolgreich angemeldet",
             "user_id": str(user.id),
-            "token": access_token,
-            "refresh_token": refresh_token,
             "details": {
                 "email": user.email,
                 "name": user.name,
@@ -144,6 +154,8 @@ def login():
         # Setze sichere HTTP-Only Cookies
         set_access_cookies(response, access_token)
         set_refresh_cookies(response, refresh_token)
+
+
         return response, 200
 
     except Exception as e:
@@ -181,12 +193,13 @@ def logout():
         db.session.begin()
         
         # Blacklist Access Token
-        db.session.add(TokenBlacklist(
-            jti=access_jti,
-            token_type='access',
-            user_id=user_id,
-            expires_at=now + timedelta(hours=1),
-            reason='logout',
+        db.session.add(TokenBlacklist( 
+            jti=access_jti, 
+            token_type='access', 
+            user_id=user_id, 
+            expires_at=now + timedelta(minutes=15), 
+            reason='logout', 
+            
             created_at=now
         ))
 
@@ -263,13 +276,13 @@ def refresh():
         refresh_jti = get_jwt()['jti']
         
         # Prüfe ob Refresh Token in Blacklist
-        if TokenBlacklist.query.filter_by(jti=refresh_jti).first():
+        if TokenBlacklist.query.filter_by(jti=refresh_jti,token_type='refresh').first():
             return jsonify({
                 "message": "Ungültiger Refresh Token",
                 "details": {
                     "hint": "Token wurde widerrufen",
                     "token_id": refresh_jti,
-                    "timestamp": now.isoformat()
+                    "timestamp": now.isoformat(),
                 }
             }), 401
 
@@ -278,7 +291,6 @@ def refresh():
         
         response = jsonify({
             "message": "Token erfolgreich aktualisiert",
-            "user_id": identity,
             "token": access_token,
             "details": {
                 "expires_in": "15 Minuten",
@@ -415,10 +427,10 @@ def register():
             raise e
         
         # Erstelle Tokens für automatische Anmeldung
-        access_token = create_access_token(identity=str(new_user.id))
-        refresh_token = create_refresh_token(identity=str(new_user.id))
-        refresh_jti = get_jwt()['jti']  # Get the refresh token ID
-        
+        access_token = create_access_token(identity=str(new_user.id), additional_claims={"token_type": "access"})
+        refresh_token_jti = str(uuid.uuid4())
+        refresh_token = create_refresh_token(identity=str(new_user.id), additional_claims={"token_type": "refresh", "jti": refresh_token_jti})
+        db.session.commit()
         response = jsonify({
             "message": "Benutzer erfolgreich registriert",
             "user_id": str(new_user.id),
@@ -431,7 +443,7 @@ def register():
                 "last_login": now.isoformat(),
                 "token_expires": "15 Minuten",
                 "refresh_token_expires": "7 Tage",
-                "refresh_token_id": refresh_jti,
+                "refresh_token_id": refresh_token_jti,
                 "timestamp": now.isoformat()
             }
         })
@@ -460,4 +472,18 @@ def protected():
     current_user_id = get_jwt_identity()  # Extrahiert die User-ID aus dem Token
     return jsonify({
         "message": f"Hallo, Benutzer {current_user_id}! Du hast Zugriff auf diese geschützte Route."
+    }), 200
+
+# Blueprint für allgemeine Routen
+main_bp = Blueprint('main', __name__)
+
+@main_bp.route('/api/health', methods=['GET'])
+def health_check():
+    """
+    Einfacher Health-Check Endpoint zur Überprüfung, ob die API läuft.
+    """
+    return jsonify({
+        "status": "ok",
+        "message": "Der Server läuft",
+        "timestamp": datetime.utcnow().isoformat()
     }), 200

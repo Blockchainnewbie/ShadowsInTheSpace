@@ -18,6 +18,7 @@ pkgs.mkShell {
     python311Packages.argon2-cffi
     python311Packages.gunicorn
     python311Packages.pymysql
+    sqlite # Added sqlite package
     nodejs_20
     nodePackages.nodemon
   ];
