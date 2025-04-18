@@ -4,6 +4,45 @@ This document provides a high-level overview of the project codebase based on an
 
 ## Project Structure
 
+## Summary of Changes and Fixes
+
+### Database and Login Issues
+
+During development, we encountered several issues related to database connectivity and user login functionality. This section summarizes the problems we faced and the solutions implemented to resolve them.
+
+#### Database Connection Issues
+
+1.  **Missing Database URI:** Initially, the application failed to connect to the database due to the absence of the `SQLALCHEMY_DATABASE_URI` configuration.
+    *   **Fix:** We modified `backend/app/__init__.py` to load configuration settings from `backend/app/config.py` before initializing the database. We added `app.config.from_object(Config)` in `create_app()`.
+    *   **Fix:** We ensured that `db.init_app(app)` was called after the configuration was loaded.
+2. **Config File**: The Config file was missing fallback values for `SECRET_KEY` and `JWT_SECRET_KEY`.
+     *   **Fix:** We modified `backend/app/config.py` and added a fallback for both variables.
+3. **Run.py**: The Run.py file was not loading the configuration file.
+    * **Fix:** We changed the `run.py` file and added a temporary Flask app instance to load the config file.
+
+#### Login Issues
+
+1.  **JWT Secret Key Not Set:** The application threw an error indicating that the `JWT_SECRET_KEY` was not set, preventing the creation of JWT tokens.
+    *   **Fix:** We added a default value of `'super-secret'` for the `JWT_SECRET_KEY` in `backend/app/config.py`. However, it is very important to set a secure value in a productive environment.
+2.  **Transaction Error:** The login process would fail with an `sqlalchemy.exc.InvalidRequestError`, indicating an attempt to begin a transaction when one was already active.
+    *   **Fix:** We removed the redundant `db.session.begin()` call in `backend/app/routes.py` within the login function, allowing the transaction to be managed correctly.
+
+### Additional Changes
+
+1. **Blueprints:** We changed the `backend/app/__init__.py` to include the `main_bp` Blueprint.
+2. **CORS:** We configured the CORS Settings so localhost and the main domain are accessible.
+
+
+### Production Database Configuration
+
+For production deployments, it is crucial to configure the database connection securely and correctly:
+
+1.  **Environment Variables:** Set the `DATABASE_URL` environment variable with your database connection string (e.g., `mysql://user:password@host/database`) in the `.env.local` or on the server.
+2.  **Secure Credentials:** Ensure that the database username and password used in the connection string are strong and unique to this application.
+3.  **Database User Permissions:** Limit the permissions of the database user to only what is necessary for the application to function (e.g., `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
+4.  **SSL/TLS:** Configure your database to use SSL/TLS encryption to secure the connection between the application and the database server.
+
+
 The project follows a monorepo structure containing separate frontend and backend applications:
 
 -   `frontend/`: Contains the Vue.js single-page application.
